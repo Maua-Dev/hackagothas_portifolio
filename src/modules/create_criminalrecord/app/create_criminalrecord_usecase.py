@@ -10,6 +10,7 @@ class CreateCriminalRecordUsecase:
         self.repo = repo_criminalrecord
 
     def __call__(self, criminalrecord: CriminalRecord):
-        if self.repo.get_criminalrecord(criminalrecord.id) is not None:
+        criminalrecord_with_same_id = self.repo.get_criminalrecord(criminalrecord.id)
+        if criminalrecord_with_same_id is not None:
             raise ForbiddenAction("Criminal Record already exists")
         return self.repo.create_criminalrecord(criminalrecord)
