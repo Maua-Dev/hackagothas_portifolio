@@ -19,13 +19,14 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
             Criminal(name="Furlan", description="Furlan is a Automato", gender=GENDER.MALE, region="Mauá"),
             Criminal(name="Vanderlei", description="HAHA Matlab", gender=GENDER.MALE, region="Mauá"),
             Criminal(name="Patricia Antonio", description="Smile", gender=GENDER.FEMALE, region="São Paulo"),
+            Criminal(name="Prino", description="Smoke maker", gender=GENDER.MALE, region="Osasco"),
         ]
         
         self.crimes = [
             Crime(id=1, criminal=self.criminals[0], crime=CRIME.MURDER, region="Mauá", date="20-01-2021", num_victims=1),
             Crime(id=2, criminal=self.criminals[1], crime=CRIME.ROBBERY, region="São Paulo", date="02-04-2023", num_victims=1),
             Crime(id=3, criminal=self.criminals[2], crime=CRIME.TERRORISM, region="Mauá", date="01-03-2023", num_victims=5),
-            Crime(id=4, criminal=self.criminals[2], crime=CRIME.MURDER, region="Mauá", date="02-03-2023", num_victims=1),
+            Crime(id=4, criminal=self.criminals[3], crime=CRIME.MURDER, region="Mauá", date="02-03-2023", num_victims=1),
         ]
         
         self.criminalrecords = [
