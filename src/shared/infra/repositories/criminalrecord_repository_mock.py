@@ -43,3 +43,4 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
             if criminalrecord.id == id:
                 return criminalrecord
         return None
+    
