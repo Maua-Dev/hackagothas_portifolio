@@ -51,4 +51,4 @@ class Criminal(abc.ABC):
         return True
     
     def __eq__(self, other) -> bool: 
-        return self.name == other.name and self.description == other.description and self.gender == other.gender and self.region == other.region
+        return self.id == other.id and self.name == other.name and self.description == other.description and self.gender == other.gender and self.region == other.region

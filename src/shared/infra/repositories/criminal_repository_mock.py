@@ -22,6 +22,6 @@ class CriminalRepositoryMock(ICriminalRepository):
     
     def get_criminal(self, id: int) -> Criminal:
         for criminal in self.criminals:
-            if criminal.id -- id:
+            if criminal.id == id:
                 return criminal
         return None
