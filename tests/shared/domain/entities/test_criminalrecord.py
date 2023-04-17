@@ -11,7 +11,7 @@ from src.shared.domain.enums.gender_enum import GENDER
 
 class Test_CriminalRecord():
     
-    criminal = Criminal(name="Furlan", description="LINUX", gender=GENDER.MALE, region="Brazil")
+    criminal = Criminal(id=1, name="Furlan", description="LINUX", gender=GENDER.MALE, region="Brazil")
     crimes = [
         Crime(id=1, criminal=criminal, crime=CRIME.THEFT, region="Brazil", date="2020-01-01", num_victims=1),
         Crime(id=2, criminal=criminal, crime=CRIME.TERRORISM, region="Brazil", date="2020-01-01", num_victims=2),

@@ -8,4 +8,6 @@ class ICriminalRepository(ABC):
     def create_criminal(self, criminal: Criminal) -> Criminal: 
         pass
     
-    
+    @abstractmethod
+    def get_criminal(self, criminal: Criminal) -> Criminal:
+        pass

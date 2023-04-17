@@ -6,12 +6,17 @@ from src.shared.helpers.errors.domain_errors import EntityError
 
 
 class Criminal(abc.ABC):
+    id: int
     name: str
     description: str
     gender: GENDER
     region: str
     
-    def __init__(self, name: str, description: str, gender: GENDER, region: str):
+    def __init__(self, id: int, name: str, description: str, gender: GENDER, region: str):
+        
+        if type(id) != int:
+            raise EntityError('Name must be a interger')
+        self.id = id
         
         if type(name) != str:
             raise EntityError('Name must be a string')
@@ -35,6 +40,14 @@ class Criminal(abc.ABC):
             return False
         if len(name) <= 2:
             return False
+        return True
+    
+    @staticmethod 
+    def validate_id(id: int) -> bool:
+        if id < 0: 
+            return False
+        if type(id) != int:
+            return False 
         return True
     
     def __eq__(self, other) -> bool: 
