@@ -7,3 +7,7 @@ class ICrimeRepository(ABC):
     @abstractmethod
     def create_crime(self, crime: Crime) -> Crime:
         pass
+    
+    @abstractmethod
+    def get_crime(self, Crime) -> Crime:
+        pass

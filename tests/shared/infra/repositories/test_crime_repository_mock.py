@@ -15,6 +15,16 @@ class Test_CrimeRepositoryMock:
         assert length_before == length_after - 1
         assert crime_response == crime
         
+    def test_get_crime(self):
+        repo = CrimeRepositoryMock()
         
+        crime_response = repo.get_crime(id=repo.crimes[0].id)
         
+        assert crime_response == repo.crimes[0]
         
+    def test_get_criminal_not_found(self):
+        repo = CrimeRepositoryMock()
+        
+        crime_response = repo.get_crime(id=-1)
+        
+        assert crime_response == None
