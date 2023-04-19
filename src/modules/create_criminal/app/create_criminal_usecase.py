@@ -6,7 +6,7 @@ from src.shared.helpers.errors.usecase_errors import ForbiddenAction
 
 
 class CreateCriminalUsecase:
-    def _init_(self, repo_criminal: ICriminalRepository):
+    def __init__(self, repo_criminal: ICriminalRepository):
         self.repo = repo_criminal
         
     def __call__(self, criminal: Criminal):

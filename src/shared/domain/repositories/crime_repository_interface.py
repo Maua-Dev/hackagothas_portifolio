@@ -9,5 +9,5 @@ class ICrimeRepository(ABC):
         pass
     
     @abstractmethod
-    def get_crime(self, Crime) -> Crime:
+    def get_crime(self, id: int) -> Crime:
         pass
