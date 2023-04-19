@@ -16,7 +16,7 @@ class Test_CreateCriminalRecordUsecase:
     criminal = Criminal(id=1, name="Furlas", description="Furlan is a Automato", gender=GENDER.FEMALE, region="Mauá")
     crime = Crime(id=5, criminal=criminal, crime=CRIME.MURDER, region="Mauá", date="20-01-2021", num_victims=1)
     criminalrecord = CriminalRecord(id=5, criminal=criminal, crimes=[crime], arrested=False, score=DANGER_SCORE.ONESTAR)
-    criminalrecord2 = CriminalRecord(id=3, criminal=criminal, crimes=[crime], arrested=False, score=DANGER_SCORE.ONESTAR)
+    criminalrecord_with_same_id = CriminalRecord(id=3, criminal=criminal, crimes=[crime], arrested=False, score=DANGER_SCORE.ONESTAR)
     
     def test_create_criminalrecord_usecase(self):
         
@@ -36,7 +36,7 @@ class Test_CreateCriminalRecordUsecase:
         repo = CriminalRecordRepositoryMock()
         usecase = CreateCriminalRecordUsecase(repo)
         
-        criminalrecord = self.criminalrecord2
+        criminalrecord = self.criminalrecord_with_same_id
         
         with pytest.raises(ForbiddenAction):
             criminalrecord_response = usecase(criminalrecord=criminalrecord)

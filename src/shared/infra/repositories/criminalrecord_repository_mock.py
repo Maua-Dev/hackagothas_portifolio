@@ -45,3 +45,22 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                 return criminalrecord
         return None
     
+    def create_criminal(self, criminal: Criminal) -> Criminal:
+        self.criminals.append(criminal)
+        return criminal
+    
+    def get_criminal(self, id: int) -> Criminal:
+        for criminal in self.criminals:
+            if criminal.id == id:
+                return criminal
+        return None
+    
+    def create_crime(self, crime: Crime) -> Crime:
+        self.crimes.append(crime)
+        return crime
+    
+    def get_crime(self, id: int) -> Crime:
+        for crime in self.crimes:
+            if crime.id == id:
+                return crime
+        return None

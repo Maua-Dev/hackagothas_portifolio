@@ -33,3 +33,57 @@ class Test_CriminalRecordRepositoryMock():
         criminalrecord_response = repo.get_criminalrecord(id=-1)
         
         assert criminalrecord_response == None
+        
+    def test_create_criminal(self):
+        repo = CriminalRecordRepositoryMock()
+        length_before = len(repo.criminals)
+        
+        criminal = repo.criminals[0]        
+        
+        criminal_response = repo.create_criminal(criminal=criminal)
+        
+        length_after = len(repo.criminals)
+        
+        assert length_before == length_after - 1
+        assert criminal_response == criminal
+    
+    def test_get_criminal(self):
+        repo = CriminalRecordRepositoryMock()
+        
+        criminal_response = repo.get_criminal(id=repo.criminals[0].id)
+        
+        assert criminal_response == repo.criminals[0]
+        
+    def test_get_criminal_not_found(self):
+        repo = CriminalRecordRepositoryMock()
+        
+        criminal_response = repo.get_criminal(id=-1)
+        
+        assert criminal_response == None
+        
+    def test_create_crime(self):
+        repo = CriminalRecordRepositoryMock()
+        length_before = len(repo.crimes)
+        
+        crime = repo.crimes[0]
+        
+        crime_response = repo.create_crime(crime=crime)
+        
+        length_after = len(repo.crimes)
+        
+        assert length_before == length_after - 1
+        assert crime_response == crime
+        
+    def test_get_crime(self):
+        repo = CriminalRecordRepositoryMock()
+        
+        crime_response = repo.get_crime(id=repo.crimes[0].id)
+        
+        assert crime_response == repo.crimes[0]
+        
+    def test_get_criminal_not_found(self):
+        repo = CriminalRecordRepositoryMock()
+        
+        crime_response = repo.get_crime(id=-1)
+        
+        assert crime_response == None

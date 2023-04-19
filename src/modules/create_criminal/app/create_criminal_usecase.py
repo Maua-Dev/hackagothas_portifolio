@@ -1,12 +1,12 @@
  
  
 from src.shared.domain.entities.criminal import Criminal
-from src.shared.domain.repositories.criminal_repository_interface import ICriminalRepository
+from src.shared.domain.repositories.criminalrecord_repository_interface import ICriminalRecordRepository
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction
 
 
 class CreateCriminalUsecase:
-    def __init__(self, repo_criminal: ICriminalRepository):
+    def __init__(self, repo_criminal: ICriminalRecordRepository):
         self.repo = repo_criminal
         
     def __call__(self, criminal: Criminal):
