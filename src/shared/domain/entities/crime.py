@@ -56,3 +56,5 @@ class Crime(abc.ABC):
             return False
         return True
      
+    def __eq__(self, other) -> bool:
+        return self.id == other.id and self.criminal == other.criminal and self.crime == other.crime and self.region == other.region and self.date == other.date and self.num_victims == other.num_victims

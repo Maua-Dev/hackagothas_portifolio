@@ -35,3 +35,6 @@ class CriminalRecord(abc.ABC):
         if type(score) != DANGER_SCORE:
             raise Exception("Invalid score")
         self.score = score
+        
+    def __eq__(self, other) -> bool:
+        return self.id == other.id and self.criminal == other.criminal and self.crimes == other.crimes and self.arrested == other.arrested and self.score == other.score

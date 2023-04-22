@@ -9,7 +9,7 @@ from src.shared.domain.enums.gender_enum import GENDER
 
 class Test_Crime():
     
-    criminal = Criminal(name="Furlan", description="LINUX", gender=GENDER.MALE, region="Brazil")
+    criminal = Criminal(id=1, name="Furlan", description="LINUX", gender=GENDER.MALE, region="Brazil")
 
     def test_crime(self):
         crime = Crime(id=1, criminal=self.criminal, crime=CRIME.THEFT, region="Brazil", date="2020-01-01", num_victims=1)
