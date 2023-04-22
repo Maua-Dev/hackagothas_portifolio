@@ -1,4 +1,8 @@
+from src.shared.domain.entities.crime import Crime
 from src.shared.domain.entities.criminal import Criminal
+from src.shared.domain.entities.criminalrecord import CriminalRecord
+from src.shared.domain.enums.crime_enum import CRIME
+from src.shared.domain.enums.danger_score_enum import DANGER_SCORE
 from src.shared.domain.enums.gender_enum import GENDER
 from src.shared.infra.repositories.criminalrecord_repository_mock import (
     CriminalRecordRepositoryMock,
@@ -91,26 +95,62 @@ class Test_CriminalRecordRepositoryMock:
 
     def test_update_criminalrecord(self):
         repo = CriminalRecordRepositoryMock()
-
-        criminalrecord = repo.criminalrecords[0]
-        criminalrecord.arrested = True
+        criminal = Criminal(
+            id=1,
+            name="Furlas",
+            description="Furlan is a Automato",
+            gender=GENDER.FEMALE,
+            region="Mauá",
+        )
+        crime = Crime(
+            id=5,
+            criminal=criminal,
+            crime=CRIME.MURDER,
+            region="Mauá",
+            date="20-01-2021",
+            num_victims=1,
+        )
+        criminalrecord = CriminalRecord(
+            id=1,
+            criminal=criminal,
+            crimes=[crime],
+            arrested=True,
+            score=DANGER_SCORE.ONESTAR,
+        )
 
         criminalrecord_response = repo.update_criminalrecord(
-            criminalrecord=criminalrecord,
-            id=1,
+            criminalrecord=criminalrecord
         )
 
         assert criminalrecord_response == criminalrecord
 
     def test_update_criminalrecord_id_not_found(self):
         repo = CriminalRecordRepositoryMock()
-
-        criminalrecord = repo.criminalrecords[0]
-        criminalrecord.arrested = True
+        criminal = Criminal(
+            id=1,
+            name="Furlas",
+            description="Furlan is a Automato",
+            gender=GENDER.FEMALE,
+            region="Mauá",
+        )
+        crime = Crime(
+            id=5,
+            criminal=criminal,
+            crime=CRIME.MURDER,
+            region="Mauá",
+            date="20-01-2021",
+            num_victims=1,
+        )
+        criminalrecord = CriminalRecord(
+            id=10,
+            criminal=criminal,
+            crimes=[crime],
+            arrested=True,
+            score=DANGER_SCORE.ONESTAR,
+        )
 
         criminalrecord_response = repo.update_criminalrecord(
-            criminalrecord=criminalrecord,
-            id=5,
+            criminalrecord=criminalrecord
         )
 
         assert criminalrecord_response == None

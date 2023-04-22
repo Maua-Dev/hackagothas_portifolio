@@ -135,11 +135,9 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                 return crime
         return None
 
-    def update_criminalrecord(
-        self, criminalrecord: CriminalRecord, id: int
-    ) -> CriminalRecord:
+    def update_criminalrecord(self, criminalrecord: CriminalRecord) -> CriminalRecord:
         for index in range(len(self.criminalrecords)):
-            if self.criminalrecords[index].id == id:
+            if self.criminalrecords[index].id == criminalrecord.id:
                 self.criminalrecords[index] = criminalrecord
                 return criminalrecord
         return None
