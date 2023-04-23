@@ -14,6 +14,6 @@ class UpdateCriminalRecordUsecase:
         criminalrecord_with_same_id = self.repo.update_criminalrecord(
             criminalrecord=criminalrecord
         )
-        if criminalrecord_with_same_id is not None:
+        if criminalrecord_with_same_id is None:
             raise ForbiddenAction("CriminalRecord doesn't exists")
         return self.repo.update_criminalrecord(criminalrecord=criminalrecord)
