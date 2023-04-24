@@ -49,7 +49,7 @@ class Test_UpdateCriminalRecordController:
 
         response = controller(request=request)
 
-        assert response.status_code == 201
+        assert response.status_code == 200
         assert response.body["message"] == "the criminal record was updated"
         assert response.body["criminalrecord"]["id_criminalrecord"] == 1
         assert response.body["criminalrecord"]["criminal"]["id_criminal"] == 1

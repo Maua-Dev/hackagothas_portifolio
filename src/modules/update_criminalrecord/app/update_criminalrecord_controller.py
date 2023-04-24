@@ -10,6 +10,7 @@ from src.shared.domain.enums.gender_enum import GENDER
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction
 from src.shared.helpers.external_interfaces.http_codes import (
+    OK,
     BadRequest,
     Created,
     InternalServerError,
@@ -116,7 +117,7 @@ class UpdateCriminalRecordController:
 
                 crime_entity = Crime(
                     id=crime.get("id_crime"),
-                    criminal=dict(criminal_entity),
+                    criminal=criminal_entity,
                     crime=crime_type,
                     region=crime.get("region_crime"),
                     date=crime.get("date"),
@@ -148,7 +149,7 @@ class UpdateCriminalRecordController:
 
             criminalrecord = CriminalRecord(
                 id=request.data.get("id_criminalrecord"),
-                criminal=dict(criminal),
+                criminal=criminal,
                 crimes=crimes_entity,
                 arrested=request.data.get("arrested"),
                 score=score_type,
@@ -159,7 +160,7 @@ class UpdateCriminalRecordController:
             )
             viewmodel = UpdateCriminalRecordViewmodel(criminalrecord_response)
 
-            return Created(body=viewmodel.to_dict())
+            return OK(body=viewmodel.to_dict())
 
         except EntityError as err:
             return BadRequest(body=err.message)
