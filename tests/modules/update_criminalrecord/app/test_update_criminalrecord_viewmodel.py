@@ -40,26 +40,26 @@ class Test_CreateCriminalRecordViewmodel:
 
         assert criminalrecord_viewmodel == {
             "criminalrecord": {
-                "id": 3,
+                "id_criminalrecord": 3,
                 "criminal": {
-                    "id": 1,
+                    "id_criminal": 1,
                     "name": "IGAO DE LP VULGO ESTORA POO",
                     "description": "Furlan is a Automato",
                     "gender": "FEMALE",
-                    "region": "Mauá",
+                    "region_criminal": "Mauá",
                 },
                 "crimes": [
                     {
-                        "id": 5,
+                        "id_crime": 5,
                         "criminal": {
-                            "id": 1,
+                            "id_criminal": 1,
                             "name": "IGAO DE LP VULGO ESTORA POO",
                             "description": "Furlan is a Automato",
                             "gender": "FEMALE",
-                            "region": "Mauá",
+                            "region_criminal": "Mauá",
                         },
                         "crime": "MURDER",
-                        "region": "Mauá",
+                        "region_crime": "Mauá",
                         "date": "20-01-2021",
                         "num_victims": 1,
                     }
