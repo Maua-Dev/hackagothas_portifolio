@@ -48,7 +48,7 @@ class Test_UpdateCriminalRecordPresenter:
 
     def test_update_criminalrecord_presenter_missing_id(self):
         event = {
-            "body": {
+            "body": json.dumps({
                 "criminal": {
                     "id_criminal": 1,
                     "name": "lil pump",
@@ -74,7 +74,7 @@ class Test_UpdateCriminalRecordPresenter:
                 ],
                 "arrested": True,
                 "score": "ONESTAR",
-            }
+            })
         }
 
         response = update_criminalrecord_presenter(event, None)
