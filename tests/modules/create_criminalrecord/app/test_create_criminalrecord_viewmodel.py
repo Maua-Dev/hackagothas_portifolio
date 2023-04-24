@@ -43,7 +43,7 @@ class Test_CreateCriminalRecordViewmodel:
                     }
                 ],
                 "arrested": False,
-                "score": "LIGHT",
+                "score": "ONESTAR",
             },
             "message": "the criminal record was created",
         }

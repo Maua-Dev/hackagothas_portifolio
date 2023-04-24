@@ -29,38 +29,104 @@ class UpdateCriminalRecordController:
     def __call__(self, request: HttpRequest) -> HttpResponse:
         try:
             if request.data.get("id_criminalrecord") is None:
-                raise MissingParameters("Missing id_criminalrecord")
-            if request.data.get("id_criminal") is None:
-                raise MissingParameters("Missing id_criminal")
-            if request.data.get("name") is None:
-                raise MissingParameters("Missing name")
-            if request.data.get("description") is None:
-                raise MissingParameters("Missing description")
-            if request.data.get("gender") is None:
-                raise MissingParameters("Missing gender")
-            if request.data.get("region_criminal") is None:
-                raise MissingParameters("Missing region_criminal")
-            if request.data.get("id_crime") is None:
-                raise MissingParameters("Missing id_crime")
-            if request.data.get("crime") is None:
-                raise MissingParameters("Missing crime")
-            if request.data.get("region_crime") is None:
-                raise MissingParameters("Missing region_crime")
-            if request.data.get("date") is None:
-                raise MissingParameters("Missing date")
-            if request.data.get("num_victims") is None:
-                raise MissingParameters("Missing num_victims")
+                raise MissingParameters("id_criminalrecord")
+            if request.data.get("criminal") is None:
+                raise MissingParameters("criminal")
+            if request.data.get("crimes") is None:
+                raise MissingParameters("crime")
             if request.data.get("arrested") is None:
-                raise MissingParameters("Missing arrested")
+                raise MissingParameters("arrested")
             if request.data.get("score") is None:
-                raise MissingParameters("Missing score")
+                raise MissingParameters("score")
 
-            if type(request.data.get("crime")) is not str:
-                raise EntityError("Invalid crime")
-            crimes_types_values = [crime.value for crime in CRIME]
-            if request.data.get("crime") not in crimes_types_values:
-                raise EntityError("Invalid crime")
-            crime_type = CRIME[request.data.get("crime")]
+            if type(request.data.get("criminal")) is not dict:
+                raise EntityError("Invalid criminal")
+
+            criminal = request.data.get("criminal")
+
+            if criminal.get("id_criminal") is None:
+                raise MissingParameters("id_criminal")
+            if criminal.get("name") is None:
+                raise MissingParameters("name")
+            if criminal.get("description") is None:
+                raise MissingParameters("description")
+            if criminal.get("gender") is None:
+                raise MissingParameters("gender")
+            if criminal.get("region_criminal") is None:
+                raise MissingParameters("region_criminal")
+
+            if type(request.data.get("crimes")) is not list:
+                raise EntityError("Invalid crimes")
+
+            crimes = request.data.get("crimes")
+            crimes_type = [crime_type.value for crime_type in CRIME]
+            crimes_entity = []
+
+            for crime in crimes:
+                if type(crime) is not dict:
+                    raise EntityError("Invalid crimes")
+                if crime.get("id_crime") is None:
+                    raise MissingParameters("id_crime")
+                if crime.get("crime") is None:
+                    raise MissingParameters("crime")
+                if crime.get("region_crime") is None:
+                    raise MissingParameters("region_crime")
+                if crime.get("date") is None:
+                    raise MissingParameters("date")
+                if crime.get("num_victims") is None:
+                    raise MissingParameters("num_victims")
+
+                if type(crime.get("crime")) is not str:
+                    raise EntityError("Invalid crime")
+                if crime.get("crime") not in crimes_type:
+                    raise EntityError("Invalid crime")
+                crime_type = CRIME[crime.get("crime")]
+
+                if crime.get("criminal") is None:
+                    raise MissingParameters("criminal")
+                if crime.get("criminal").get("id_criminal") is None:
+                    raise MissingParameters("id_criminal")
+                if crime.get("criminal").get("name") is None:
+                    raise MissingParameters("name")
+                if crime.get("criminal").get("description") is None:
+                    raise MissingParameters("description")
+                if crime.get("criminal").get("gender") is None:
+                    raise MissingParameters("gender")
+                if crime.get("criminal").get("region_criminal") is None:
+                    raise MissingParameters("region_criminal")
+
+                if type(crime.get("criminal").get("gender")) is not str:
+                    raise EntityError("Invalid gender")
+                if crime.get("criminal").get("gender") not in [
+                    gender_entity.value for gender_entity in GENDER
+                ]:
+                    raise EntityError("Invalid gender")
+                gender_entity = GENDER[criminal.get("gender")]
+
+                criminal_entity = Criminal(
+                    id=crime.get("criminal").get("id_criminal"),
+                    name=crime.get("criminal").get("name"),
+                    description=crime.get("criminal").get("description"),
+                    region=crime.get("criminal").get("region_criminal"),
+                    gender=gender_entity,
+                )
+
+                crime_entity = Crime(
+                    id=crime.get("id_crime"),
+                    criminal=criminal_entity,
+                    crime=crime_type,
+                    region=crime.get("region_crime"),
+                    date=crime.get("date"),
+                    num_victims=crime.get("num_victims"),
+                )
+
+                crimes_entity.append(crime_entity)
+
+            if type(criminal.get("gender")) is not str:
+                raise EntityError("Invalid gender")
+            if criminal.get("gender") not in [gender.value for gender in GENDER]:
+                raise EntityError("Invalid gender")
+            gender = GENDER[criminal.get("gender")]
 
             if type(request.data.get("score")) is not str:
                 raise EntityError("Invalid score")
@@ -69,34 +135,18 @@ class UpdateCriminalRecordController:
                 raise EntityError("Invalid score")
             score_type = DANGER_SCORE[request.data.get("score")]
 
-            if type(request.data.get("gender")) is not str:
-                raise EntityError("Invalid gender")
-            genders_types_values = [gender.value for gender in GENDER]
-            if request.data.get("gender") not in genders_types_values:
-                raise EntityError("Invalid gender")
-            gender_types = GENDER[request.data.get("gender")]
-
             criminal = Criminal(
-                id=request.data.get("id_criminal"),
-                name=request.data.get("name"),
-                description=request.data.get("description"),
-                gender=gender_types,
-                region=request.data.get("region_criminal"),
-            )
-
-            crime = Crime(
-                id=request.data.get("id_crime"),
-                criminal=criminal,
-                crime=crime_type,
-                date=request.data.get("date"),
-                num_victims=request.data.get("num_victims"),
-                region=request.data.get("region_crime"),
+                id=criminal.get("id_criminal"),
+                name=criminal.get("name"),
+                description=criminal.get("description"),
+                gender=gender,
+                region=criminal.get("region_criminal"),
             )
 
             criminalrecord = CriminalRecord(
                 id=request.data.get("id_criminalrecord"),
                 criminal=criminal,
-                crimes=[crime],
+                crimes=crimes_entity,
                 arrested=request.data.get("arrested"),
                 score=score_type,
             )

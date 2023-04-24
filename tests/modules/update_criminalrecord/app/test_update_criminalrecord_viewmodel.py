@@ -65,7 +65,7 @@ class Test_CreateCriminalRecordViewmodel:
                     }
                 ],
                 "arrested": True,
-                "score": "LIGHT",
+                "score": "ONESTAR",
             },
             "message": "the criminal record was updated",
         }
