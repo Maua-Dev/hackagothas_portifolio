@@ -40,7 +40,7 @@ class UpdateCriminalRecordController:
                 raise MissingParameters("score")
 
             if type(request.data.get("criminal")) is not dict:
-                raise EntityError("Invalid criminal")
+                raise EntityError("criminal of criminal record")
 
             criminal = request.data.get("criminal")
 
@@ -56,7 +56,7 @@ class UpdateCriminalRecordController:
                 raise MissingParameters("region_criminal")
 
             if type(request.data.get("crimes")) is not list:
-                raise EntityError("Invalid crimes")
+                raise EntityError("crimes")
 
             crimes = request.data.get("crimes")
             crimes_type = [crime_type.value for crime_type in CRIME]
@@ -81,6 +81,9 @@ class UpdateCriminalRecordController:
                 if crime.get("crime") not in crimes_type:
                     raise EntityError("Invalid crime")
                 crime_type = CRIME[crime.get("crime")]
+
+                if type(crime.get("criminal")) is not dict:
+                    raise MissingParameters("criminal of crime")
 
                 if crime.get("criminal") is None:
                     raise MissingParameters("criminal")
@@ -113,7 +116,7 @@ class UpdateCriminalRecordController:
 
                 crime_entity = Crime(
                     id=crime.get("id_crime"),
-                    criminal=criminal_entity,
+                    criminal=dict(criminal_entity),
                     crime=crime_type,
                     region=crime.get("region_crime"),
                     date=crime.get("date"),
@@ -145,7 +148,7 @@ class UpdateCriminalRecordController:
 
             criminalrecord = CriminalRecord(
                 id=request.data.get("id_criminalrecord"),
-                criminal=criminal,
+                criminal=dict(criminal),
                 crimes=crimes_entity,
                 arrested=request.data.get("arrested"),
                 score=score_type,
