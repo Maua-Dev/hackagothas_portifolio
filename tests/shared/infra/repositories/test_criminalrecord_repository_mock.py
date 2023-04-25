@@ -154,3 +154,23 @@ class Test_CriminalRecordRepositoryMock:
         )
 
         assert criminalrecord_response == None
+
+    def test_delete_criminalrecord(self):
+        repo = CriminalRecordRepositoryMock()
+        criminalrecord_removed = repo.criminalrecords[0]
+
+        length_before = len(repo.criminalrecords)
+
+        criminalrecord_response = repo.delete_criminalrecord(id=1)
+
+        length_after = len(repo.criminalrecords)
+
+        assert criminalrecord_removed == criminalrecord_response
+        assert length_after == length_before - 1
+
+    def test_delete_criminalrecord_invalid_id(self):
+        repo = CriminalRecordRepositoryMock()
+
+        criminalrecord_response = repo.delete_criminalrecord(id=5)
+
+        assert criminalrecord_response == None
