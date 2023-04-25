@@ -27,3 +27,13 @@ class Test_GetUserController:
         assert response.body["criminalrecord"]["crimes"][0]["num_victims"] == repo.criminalrecords[0].crimes[0].num_victims
         assert response.body["criminalrecord"]["arrested"] == repo.criminalrecords[0].arrested
         assert response.body["criminalrecord"]["score"] == repo.criminalrecords[0].score.value
+
+    def test_get_criminalrecord_controller_missing_id(self):
+        repo = CriminalRecordRepositoryMock()
+        usecase = GetCriminalRecordUsecase(repo)
+        controller = GetCriminalRecordController(usecase)
+
+        response = controller(request = HttpRequest(body = {}))
+
+        assert response.status_code == 400
+        assert response.body == "Field id_criminalrecord is missing"
