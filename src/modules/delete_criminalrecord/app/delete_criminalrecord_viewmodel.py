@@ -81,7 +81,7 @@ class CriminalRecordViewmodel:
         }
 
 
-class UpdateCriminalRecordViewmodel:
+class DeleteCriminalRecordViewmodel:
     criminalrecord: CriminalRecordViewmodel
 
     def __init__(self, criminalrecord: CriminalRecord):
@@ -90,5 +90,5 @@ class UpdateCriminalRecordViewmodel:
     def to_dict(self):
         return {
             "criminalrecord": self.criminalrecord.to_dict(),
-            "message": "the criminal record was updated",
+            "message": "the criminal record was deleted",
         }
