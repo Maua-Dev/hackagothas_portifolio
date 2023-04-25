@@ -40,5 +40,5 @@ class Test_DeleteCriminalRecordController:
 
         response = controller(request=request)
 
-        assert response.status_code == 400
-        assert response.body == "Field id_criminalrecord is missing"
+        assert response.body == "No items found for id_criminalrecord"
+        assert response.status_code == 404

@@ -2,7 +2,7 @@ import pytest
 from src.modules.delete_criminalrecord.app.delete_criminalrecord_usecase import (
     DeleteCriminalRecordUsecase,
 )
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
 from src.shared.infra.repositories.criminalrecord_repository_mock import (
     CriminalRecordRepositoryMock,
 )
@@ -28,5 +28,5 @@ class Test_DeleteCriminalRecordUsecase:
         repo = CriminalRecordRepositoryMock()
         usecase = DeleteCriminalRecordUsecase(repo)
 
-        with pytest.raises(ForbiddenAction):
+        with pytest.raises(NoItemsFound):
             criminalrecord_response = usecase(id_criminalrecord=10)

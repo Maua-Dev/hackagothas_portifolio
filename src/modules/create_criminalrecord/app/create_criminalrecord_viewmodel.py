@@ -29,7 +29,6 @@ class CriminalViewmodel:
             "region_criminal": self.region,
         }
 
-
 class CrimeViewmodel:
     id: int
     criminal: Criminal
@@ -79,7 +78,6 @@ class CriminalRecordViewmodel:
             "arrested": self.arrested,
             "score": self.score.value,
         }
-
 
 class CreateCriminalRecordViewmodel:
     criminalrecord: CriminalRecordViewmodel

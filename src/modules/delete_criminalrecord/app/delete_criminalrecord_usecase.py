@@ -1,7 +1,7 @@
 from src.shared.domain.repositories.criminalrecord_repository_interface import (
     ICriminalRecordRepository,
 )
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
 
 
 class DeleteCriminalRecordUsecase:
@@ -11,5 +11,5 @@ class DeleteCriminalRecordUsecase:
     def __call__(self, id_criminalrecord: int):
         criminalrecord = self.repo.delete_criminalrecord(id=id_criminalrecord)
         if criminalrecord is None:
-            raise ForbiddenAction("CriminalRecord doesn't exists")
+            raise NoItemsFound("id_criminalrecord")
         return criminalrecord

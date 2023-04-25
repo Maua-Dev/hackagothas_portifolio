@@ -8,6 +8,7 @@ from src.shared.helpers.external_interfaces.http_codes import (
     BadRequest,
     InternalServerError,
     Forbidden,
+    NotFound,
 )
 from src.shared.helpers.external_interfaces.http_models import HttpRequest, HttpResponse
 from src.shared.helpers.errors.controller_errors import MissingParameters
@@ -17,8 +18,7 @@ from src.shared.infra.repositories.criminalrecord_repository_mock import (
 
 
 class DeleteCriminalRecordController:
-    repo = CriminalRecordRepositoryMock()
-
+''
     def __init__(self, usecase: DeleteCriminalRecordUsecase):
         self.deleteCriminalRecordUsecase = usecase
 
@@ -27,11 +27,7 @@ class DeleteCriminalRecordController:
             id_criminalrecord = request.data.get("id_criminalrecord")
             if id_criminalrecord is None:
                 raise MissingParameters("id_criminalrecord")
-
-            if self.repo.delete_criminalrecord(id=id_criminalrecord) is None:
-                print("AJIHSFGIAUYFBVUHYASVFGJHASVGUFHVAUHFVASYUBVFYSABVFA")
-                raise NoItemsFound("id_criminalrecord")
-
+            criminal_record = self.deleteCriminalRecordUsecase(id_criminalrecord=id_criminalrecord)
             return OK(
                 body=f"the criminal record with id {id_criminalrecord} was deleted"
             )
@@ -43,10 +39,10 @@ class DeleteCriminalRecordController:
             return Forbidden(body=err.message)
 
         except MissingParameters as err:
-            print(request.data.get("id_criminalrecord"))
-            print(request.data.get("id_criminalrecord") is None)
-            print(self.repo.delete_criminalrecord(id=id_criminalrecord) is None)
             return BadRequest(body=err.message)
+
+        except NoItemsFound as err:
+            return NotFound(body=err.message)
 
         except Exception as err:
             return InternalServerError(body=err.args[0])
