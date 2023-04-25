@@ -18,12 +18,11 @@ from src.shared.infra.repositories.criminalrecord_repository_mock import (
 
 
 class DeleteCriminalRecordController:
-''
     def __init__(self, usecase: DeleteCriminalRecordUsecase):
         self.deleteCriminalRecordUsecase = usecase
 
     def __call__(self, request: HttpRequest) -> HttpResponse:
-        try:
+        try: 
             id_criminalrecord = request.data.get("id_criminalrecord")
             if id_criminalrecord is None:
                 raise MissingParameters("id_criminalrecord")
