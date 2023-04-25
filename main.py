@@ -18,11 +18,14 @@ from src.modules.delete_criminalrecord.app.delete_criminalrecord_presenter impor
 app = FastAPI()
 
 
-@app.post("/update_criminalrecord/")
-def update_criminalrecord(data: dict = None):
-    event = {"body": json.dumps({k: v for k, v in data.items()})}
-
-    response = update_criminalrecord_presenter(event, None)
+@app.get("/get_criminalrecord/")
+def get_criminalrecord(id_criminalrecord=None):
+    request = {
+        "body": {},
+        "headers": {},
+        "query_params": {"id_criminalrecord": int(id_criminalrecord)},
+    }
+    response = get_criminalrecord_presenter(request, None)
     return response
 
 
@@ -34,14 +37,12 @@ def create_criminalrecord(data: dict = None):
     return response
 
 
-@app.get("/get_criminalrecord/")
-def get_criminalrecord(id_criminalrecord=None):
-    request = {
-        "body": {},
-        "headers": {},
-        "query_params": {"id_criminalrecord": int(id_criminalrecord)},
-    }
-    response = get_criminalrecord_presenter(request, None)
+@app.post("/update_criminalrecord/")
+def update_criminalrecord(data: dict = None):
+    event = {"body": json.dumps({k: v for k, v in data.items()})}
+
+    response = update_criminalrecord_presenter(event, None)
+    return response
 
 
 @app.post("/delete_criminalrecord/")
