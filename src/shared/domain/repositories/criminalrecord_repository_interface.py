@@ -34,3 +34,7 @@ class ICriminalRecordRepository(abc.ABC):
     @abstractmethod
     def update_criminalrecord(self, criminalrecord: CriminalRecord) -> CriminalRecord:
         pass
+
+    @abstractmethod
+    def delete_criminalrecord(self, id: int) -> CriminalRecord:
+        pass
