@@ -25,7 +25,7 @@ class Test_DeleteCriminalRecordController:
         response = controller(request=request)
 
         assert response.status_code == 200
-        assert response.body == "the criminal record with id 1 was deleted"
+        assert response.body["message"] == "the criminal record was deleted"
 
     def test_delete_criminalrecord_controller_invalid_id(self):
         repo = CriminalRecordRepositoryMock()

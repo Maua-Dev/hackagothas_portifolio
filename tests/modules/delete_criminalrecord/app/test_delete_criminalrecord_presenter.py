@@ -10,7 +10,21 @@ class Test_DeleteCriminalRecordPresenter:
 
         response = delete_criminalrecord_presenter(event, None)
 
-        expected = "the criminal record with id 1 was deleted"
+        expected = {
+            "criminalrecord": {
+                "id_criminalrecord": 1,
+                "criminal": {
+                    "id_criminal": 1,
+                    "name": "Furlan",
+                    "description": "Furlan is a Automato",
+                    "gender": "MALE",
+                    "region_criminal": "Mauá",
+                },
+                "arrested": False,
+                "score": "ONESTAR",
+            },
+            "message": "the criminal record was deleted",
+        }
 
         assert response["status_code"] == 200
         assert json.loads(response["body"]) == expected

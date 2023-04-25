@@ -8,6 +8,10 @@ from src.modules.create_criminalrecord.app.create_criminalrecord_presenter impor
     create_criminalrecord_presenter,
 )
 
+from src.modules.delete_criminalrecord.app.delete_criminalrecord_presenter import (
+    delete_criminalrecord_presenter,
+)
+
 app = FastAPI()
 
 
@@ -24,4 +28,12 @@ def create_criminalrecord(data: dict = None):
     event = {"body": json.dumps({k: v for k, v in data.items()})}
 
     response = create_criminalrecord_presenter(event, None)
+    return response
+
+
+@app.post("/delete_criminalrecord/")
+def delete_criminalrecord(data: dict = None):
+    event = {"body": json.dumps({k: v for k, v in data.items()})}
+
+    response = delete_criminalrecord_presenter(event, None)
     return response
