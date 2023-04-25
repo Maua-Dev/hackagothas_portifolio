@@ -1,6 +1,6 @@
 import pytest
-from src.modules.create_criminalrecord.app.create_criminalrecord_usecase import (
-    CreateCriminalRecordUsecase,
+from src.modules.update_criminalrecord.app.update_criminalrecord_usecase import (
+    UpdateCriminalRecordUsecase,
 )
 from src.shared.domain.entities.crime import Crime
 from src.shared.domain.entities.criminal import Criminal
@@ -14,10 +14,10 @@ from src.shared.infra.repositories.criminalrecord_repository_mock import (
 )
 
 
-class Test_CreateCriminalRecordUsecase:
+class Test_UpdateCriminalRecordUsecase:
     criminal = Criminal(
         id=1,
-        name="Furlas",
+        name="IGAO DE LP VULGO ESTORA POO",
         description="Furlan is a Automato",
         gender=GENDER.FEMALE,
         region="Mauá",
@@ -30,7 +30,7 @@ class Test_CreateCriminalRecordUsecase:
         date="20-01-2021",
         num_victims=1,
     )
-    criminalrecord = CriminalRecord(
+    criminalrecord_with_invalid_id = CriminalRecord(
         id=5,
         criminal=criminal,
         crimes=[crime],
@@ -41,28 +41,28 @@ class Test_CreateCriminalRecordUsecase:
         id=3,
         criminal=criminal,
         crimes=[crime],
-        arrested=False,
+        arrested=True,
         score=DANGER_SCORE.ONESTAR,
     )
 
-    def test_create_criminalrecord_usecase(self):
+    def test_update_criminalrecord_usecase(self):
         repo = CriminalRecordRepositoryMock()
-        usecase = CreateCriminalRecordUsecase(repo)
+        usecase = UpdateCriminalRecordUsecase(repo)
 
         length_before = len(repo.criminalrecords)
 
-        criminalrecord_response = usecase(criminalrecord=self.criminalrecord)
+        criminal_response = usecase(criminalrecord=self.criminalrecord_with_same_id)
 
         length_after = len(repo.criminalrecords)
 
-        assert length_after == length_before + 1
-        assert criminalrecord_response == self.criminalrecord
+        assert length_before == length_after
+        assert repo.criminalrecords[2] == criminal_response
 
-    def test_create_criminalrecord_usecase_id_already_exists(self):
+    def test_update_criminalrecord_usecase_invalid_id(self):
         repo = CriminalRecordRepositoryMock()
-        usecase = CreateCriminalRecordUsecase(repo)
-
-        criminalrecord = self.criminalrecord_with_same_id
+        usecase = UpdateCriminalRecordUsecase(repo)
 
         with pytest.raises(ForbiddenAction):
-            criminalrecord_response = usecase(criminalrecord=criminalrecord)
+            criminalrecord_response = usecase(
+                criminalrecord=self.criminalrecord_with_invalid_id
+            )
