@@ -9,10 +9,11 @@ class GetCriminalRecordUsecase:
         self.repo = repo_criminal
 
     def __call__(self, criminalrecord_id: int) -> CriminalRecord:
-        criminalrecord_with_same_id = self.repo.get_criminalrecord_by_id(criminalrecord_id=criminalrecord_id)
 
         if not CriminalRecord.validate_criminalrecord_id(criminalrecord_id):
             raise EntityError("Invalid criminalrecord_id")
+
+        criminalrecord_with_same_id = self.repo.get_criminalrecord_by_id(criminalrecord_id=criminalrecord_id)
 
         if criminalrecord_with_same_id is None:
             raise NoItemsFound("CriminalRecord doesn't exists")
