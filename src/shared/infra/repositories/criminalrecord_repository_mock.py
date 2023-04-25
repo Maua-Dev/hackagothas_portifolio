@@ -141,6 +141,12 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                 self.criminalrecords[index] = criminalrecord
                 return criminalrecord
         return None
+    
+    def get_criminalrecord_by_id(self, criminalrecord_id: int) -> CriminalRecord:
+        for criminalrecord in self.criminalrecords:
+            if criminalrecord.id == criminalrecord_id:
+                return criminalrecord
+        return None
 
     def delete_criminalrecord(self, id: int) -> CriminalRecord:
         for index in range(len(self.criminalrecords)):

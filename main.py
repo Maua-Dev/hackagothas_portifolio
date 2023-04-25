@@ -1,5 +1,8 @@
 import json
 from fastapi import FastAPI
+from src.modules.get_criminalrecord.app.get_criminalrecord_presenter import (
+    get_criminalrecord_presenter,
+)
 from src.modules.update_criminalrecord.app.update_criminalrecord_presenter import (
     update_criminalrecord_presenter,
 )
@@ -29,6 +32,16 @@ def create_criminalrecord(data: dict = None):
 
     response = create_criminalrecord_presenter(event, None)
     return response
+
+
+@app.get("/get_criminalrecord/")
+def get_criminalrecord(id_criminalrecord=None):
+    request = {
+        "body": {},
+        "headers": {},
+        "query_params": {"id_criminalrecord": int(id_criminalrecord)},
+    }
+    response = get_criminalrecord_presenter(request, None)
 
 
 @app.post("/delete_criminalrecord/")

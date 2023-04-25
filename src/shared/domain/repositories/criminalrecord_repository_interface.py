@@ -36,5 +36,9 @@ class ICriminalRecordRepository(abc.ABC):
         pass
 
     @abstractmethod
+    def get_criminalrecord_by_id(self, id: int) -> CriminalRecord:
+        pass
+        
+    @abstractmethod
     def delete_criminalrecord(self, id: int) -> CriminalRecord:
         pass

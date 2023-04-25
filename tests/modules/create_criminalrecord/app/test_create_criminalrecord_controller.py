@@ -66,3 +66,43 @@ class Test_CreateCriminalRecordController:
         assert response.body["criminalrecord"]["crimes"][0]["num_victims"] == 96
         assert response.body["criminalrecord"]["arrested"] == False
         assert response.body["criminalrecord"]["score"] == "FOURSTAR"
+
+    def test_create_criminalrecord_controller_missing_id(self):
+        repo = CriminalRecordRepositoryMock()
+        usecase = CreateCriminalRecordUsecase(repo)
+        controller = CreateCriminalRecordController(usecase)
+
+        request = HttpRequest(
+            body={
+                "criminal": {
+                    "id_criminal": 8,
+                    "name": "Prino",
+                    "description": "Smoke Maker",
+                    "gender": "MALE",
+                    "region_criminal": "ZN",
+                },
+                "crimes": [
+                    {
+                        "id_crime": 6,
+                        "criminal": {
+                            "id_criminal": 8,
+                            "name": "Prino",
+                            "description": "Smoke Maker",
+                            "gender": "MALE",
+                            "region_criminal": "ZN",
+                        },
+                        "crime": "DRUG_OFFENSES",
+                        "region_crime": "ABC",
+                        "date": "20-04-2023",
+                        "num_victims": 96,
+                    }
+                ],
+                "arrested": False,
+                "score": "FOURSTAR",
+            }
+        )
+
+        response = controller(request=request)
+
+        assert response.status_code == 400
+        assert response.body == "Field id_criminalrecord is missing"
