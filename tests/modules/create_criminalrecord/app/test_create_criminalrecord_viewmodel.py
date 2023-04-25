@@ -17,27 +17,27 @@ class Test_CreateCriminalRecordViewmodel:
         ).to_dict()
 
         assert criminalrecord_viewmodel == {
-            "crime": {
-                "id": 1,
+            "criminalrecord": {
+                "id_criminalrecord": 1,
                 "criminal": {
-                    "id": 1,
+                    "id_criminal": 1,
                     "name": "Furlan",
                     "description": "Furlan is a Automato",
                     "gender": "MALE",
-                    "region": "Mauá",
+                    "region_criminal": "Mauá",
                 },
                 "crimes": [
                     {
-                        "id": 1,
+                        "id_crime": 1,
                         "criminal": {
-                            "id": 1,
+                            "id_criminal": 1,
                             "name": "Furlan",
                             "description": "Furlan is a Automato",
                             "gender": "MALE",
-                            "region": "Mauá",
+                            "region_criminal": "Mauá",
                         },
                         "crime": "MURDER",
-                        "region": "Mauá",
+                        "region_crime": "Mauá",
                         "date": "20-01-2021",
                         "num_victims": 1,
                     }
