@@ -8,11 +8,18 @@ class FastAPIHttpRequest(HttpRequest):
     query_params: dict
     
     def __init__(self, data: dict = None) -> None:
-
+        _body = None
+        
+        if "body" in data:
+            try:
+                _body = json.loads(data.get("body"))
+            except:
+                _body = data.get("body")
+                
         super().__init__(
-            body=data.get("headers", None),
-            headers=data.get("query_params", None),
-            query_params=data.get("body", None)
+            body=_body,
+            headers=data.get("headers", None),
+            query_params=data.get("query_params", None)
         )
 
 
