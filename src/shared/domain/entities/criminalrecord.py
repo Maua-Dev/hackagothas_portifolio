@@ -43,6 +43,13 @@ class CriminalRecord(abc.ABC):
             raise Exception("Invalid score")
         self.score = score
 
+
+    @staticmethod
+    def validate_criminalrecord_id(criminalrecord_id: int) -> bool:
+        if type(criminalrecord_id) != int:
+            raise Exception("Invalid id")
+        return True
+
     def __eq__(self, other) -> bool:
         return (
             self.id == other.id
