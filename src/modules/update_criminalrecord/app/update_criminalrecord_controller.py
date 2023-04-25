@@ -12,7 +12,6 @@ from src.shared.helpers.errors.usecase_errors import ForbiddenAction
 from src.shared.helpers.external_interfaces.http_codes import (
     OK,
     BadRequest,
-    Created,
     InternalServerError,
     Forbidden,
 )

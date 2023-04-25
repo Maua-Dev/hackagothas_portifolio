@@ -22,11 +22,11 @@ class CriminalViewmodel:
 
     def to_dict(self):
         return {
-            "id": self.id,
+            "id_criminal": self.id,
             "name": self.name,
             "description": self.description,
             "gender": self.gender.value,
-            "region": self.region,
+            "region_criminal": self.region,
         }
 
 
@@ -48,10 +48,10 @@ class CrimeViewmodel:
 
     def to_dict(self):
         return {
-            "id": self.id,
+            "id_crime": self.id,
             "criminal": self.criminal.to_dict(),
             "crime": self.crime.value,
-            "region": self.region,
+            "region_crime": self.region,
             "date": self.date,
             "num_victims": self.num_victims,
         }
@@ -73,7 +73,7 @@ class CriminalRecordViewmodel:
 
     def to_dict(self):
         return {
-            "id": self.id,
+            "id_criminalrecord": self.id,
             "criminal": self.criminal.to_dict(),
             "crimes": [crime.to_dict() for crime in self.crimes],
             "arrested": self.arrested,
@@ -89,6 +89,6 @@ class CreateCriminalRecordViewmodel:
 
     def to_dict(self):
         return {
-            "crime": self.criminalrecord.to_dict(),
+            "criminalrecord": self.criminalrecord.to_dict(),
             "message": "the criminal record was created",
         }
